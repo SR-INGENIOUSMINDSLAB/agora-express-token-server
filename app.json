@@ -1,5 +1,8 @@
 {
   "name": "agoraserver",
+  "scripts": {
+    "start": "node index.js"
+}
   "description": "Dynamic Key Server",
   "keywords": [
     "Agora",
