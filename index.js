@@ -3,10 +3,13 @@ const Agora = require("agora-access-token");
 
 const app = express();
 app.use(express.json());
+var APP_ID = process.env.APP_ID;
+var APP_CERTIFICATE = process.env.APP_CERTIFICATE;
+var port =  process.env.PORT || 8080;
 
 app.post("/rtctoken", (req, res) => {
-  const appID = "11970e984ee34a2c9df362d16d7c152b";
-  const appCertificate = "09f4b091222647b2886af6757847d71f";
+  const appID = APP_ID;
+  const appCertificate = APP_CERTIFICATE;
   const expirationTimeInSeconds = 3600;
   const uid = Math.floor(Math.random() * 100000);
   const role = req.body.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
@@ -19,8 +22,8 @@ app.post("/rtctoken", (req, res) => {
 });
 
 app.post("/rtmtoken", (req, res) => {
-  const appID = "11970e984ee34a2c9df362d16d7c152b";
-  const appCertificate = "09f4b091222647b2886af6757847d71f";
+  const appID = APP_ID;
+  const appCertificate = APP_CERTIFICATE;
   const user = req.body.user;
   const role = Agora.RtmRole.Rtm_User;
   const expirationTimeInSeconds = 3600;
@@ -31,5 +34,4 @@ app.post("/rtmtoken", (req, res) => {
   res.send({ token });
 });
 
-const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Agora Auth Token Server listening at Port ${port}`));
